@@ -6,12 +6,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Sharing is caring</title>
-  <meta name="description" content="Web development blog, articles on javascript, css, html and maybe php
-">
+  <title>Es6 React boilerplate using babel, gulp and webpack</title>
+  <meta name="description" content="I have been learning React for the last 2 months, it is easy to get started if you just want to fiddle with the library. But I struggled to find a good set u...">
 
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://yourdomain.com/">
+  <link rel="canonical" href="http://yourdomain.com/blog/Es6-React-boilerplate-using-babel-gulp-and-webpack">
   <link rel="alternate" type="application/rss+xml" title="Sharing is caring" href="http://yourdomain.com/feed.xml">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
@@ -54,29 +53,115 @@
 
     <div class="page-content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 
-  <h1>Web Developer | Gerald Isabelle</h1>
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">Es6 React boilerplate using babel, gulp and webpack</h1>
+    <p class="post-meta"><time datetime="2016-05-15T20:11:01+01:00" itemprop="datePublished">May 15, 2016</time></p>
+  </header>
 
-  <p class="page-heading">Hello</p>
-  <p class="page-heading">I'm Gerald Isabelle, a contract Web Developer.</p>
-  <p class="page-heading">I have over 6 years experience of web development (javascript, html, css and php). I have worked with some of the award winning top agencies in London like VML, AnalogFolk and Wellcom London</p>
-  <p class="page-heading">I am passionate about coding and enjoy teaching, i started this blog to share some of my coding experience.</p>
-  <p class="page-heading">Enjoy.</p>
+  <div class="post-level">Level: <strong>Intermediate</strong></div>
 
-  <ul class="post-list">
-    
-      <li>
-        <span class="post-meta">May 15, 2016</span>
+  <div class="post-content" itemprop="articleBody">
+    <p>I have been learning <a href="https://facebook.github.io/react/index.html">React</a> for the last 2 months, it is easy to get started if you just want to fiddle with the library. But I struggled to find a good set up for a real project.</p>
 
-        <h2>
-          <a class="post-link" href="/blog/Es6-React-boilerplate-using-babel-gulp-and-webpack">Es6 React boilerplate using babel, gulp and webpack</a>
-        </h2>
-      </li>
-    
-  </ul>
+<p>After reading and going through many projects set ups, I have put together an all es6 boilerplate. I will share my setup and i hope it helps. Even the webpack and gulp configuration files are in es6.</p>
 
-</div>
+<h2 id="setting-up">Setting Up</h2>
+
+<p>Before we proceed please make sure you have the latest version of node. I am using v6.0.0.</p>
+
+<p>Please clone the boilerplate and install the dependencies:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">git</span> <span class="nx">clone</span> <span class="nx">https</span><span class="err">:</span><span class="c1">//github.com/dahfool/react-boilerplate.git</span>
+<span class="nx">npm</span> <span class="nx">install</span></code></pre></figure>
+
+<h3 id="webpack">Webpack</h3>
+
+<p>Webpack will bundle all your js or jsx files together and use babel to compile your es6 code. To use es6 in your webpack.config.js file rename it to webpack.config.babel.js (already done in the boilerplate).</p>
+
+<h5 id="webpackconfigbabeljs">webpack.config.babel.js</h5>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="nx">projectPath</span> <span class="nx">from</span> <span class="s1">'./projectpath.babel'</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="p">{</span>
+  <span class="na">entry</span><span class="p">:</span> <span class="nx">projectPath</span><span class="p">.</span><span class="nx">js</span><span class="p">()</span> <span class="o">+</span> <span class="s1">'index.js'</span><span class="p">,</span>
+  <span class="na">output</span><span class="p">:</span> <span class="p">{</span>
+    <span class="na">path</span><span class="p">:</span> <span class="nx">projectPath</span><span class="p">.</span><span class="nx">BuildJs</span><span class="p">(),</span>
+    <span class="na">filename</span><span class="p">:</span> <span class="s1">'script.js'</span>
+  <span class="p">},</span>
+  <span class="na">module</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="na">loaders</span> <span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="na">test</span> <span class="p">:</span> <span class="sr">/</span><span class="se">\.</span><span class="sr">jsx</span><span class="se">?</span><span class="sr">/</span><span class="p">,</span>
+        <span class="na">include</span> <span class="p">:</span> <span class="nx">projectPath</span><span class="p">.</span><span class="nx">js</span><span class="p">(),</span>
+        <span class="na">loader</span> <span class="p">:</span> <span class="s1">'babel'</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">};</span></code></pre></figure>
+
+<p>Find out more about <a href="http://webpack.github.io/docs/configuration.html">webpack configuration</a>.</p>
+
+<p>The source and destination path are stored in projectpath.babel.js for <code class="highlighter-rouge">maintainability</code> and <code class="highlighter-rouge">re usability</code> and is imported in the gulp and webpack config files.</p>
+
+<h5 id="projectpathbabeljs">projectpath.babel.js</h5>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="nx">path</span> <span class="nx">from</span> <span class="s1">'path'</span><span class="p">;</span>
+
+<span class="cm">/* Environment Path */</span>
+<span class="kr">const</span> <span class="nx">PATH</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">public</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">'public/'</span><span class="p">),</span>
+    <span class="na">src</span><span class="p">:</span> <span class="nx">path</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">__dirname</span><span class="p">,</span> <span class="s1">'src/'</span><span class="p">),</span>
+    <span class="nx">sass</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">src</span> <span class="o">+</span> <span class="s2">"/scss/"</span> <span class="p">},</span>
+    <span class="nx">js</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">src</span> <span class="o">+</span> <span class="s2">"/js/"</span> <span class="p">},</span>
+    <span class="nx">BuildJs</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="kr">public</span> <span class="o">+</span> <span class="s2">"/js/"</span> <span class="p">},</span>
+    <span class="nx">buildCss</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="kr">public</span> <span class="o">+</span> <span class="s2">"/css/"</span> <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kr">export</span> <span class="k">default</span> <span class="nx">PATH</span><span class="p">;</span></code></pre></figure>
+
+<h3 id="gulp">Gulp</h3>
+
+<p>The gulpfile has also been rename gulpfile.babel.js to use es6.</p>
+
+<h5 id="extract-from-gulpfilebabeljs">Extract from gulpfile.babel.js</h5>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kr">import</span> <span class="nx">webpack</span> <span class="nx">from</span> <span class="s1">'webpack-stream'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">webpackConfig</span> <span class="nx">from</span> <span class="s1">'./webpack.config.babel'</span><span class="p">;</span>
+<span class="kr">import</span> <span class="nx">projectPath</span> <span class="nx">from</span> <span class="s1">'./projectpath.babel'</span><span class="p">;</span>
+
+<span class="cm">/**
+ * webpack - react es6 compilation
+ */</span>
+<span class="nx">gulp</span><span class="p">.</span><span class="nx">task</span><span class="p">(</span><span class="s1">'webpack'</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">gulp</span><span class="p">.</span><span class="nx">src</span><span class="p">(</span><span class="nx">projectPath</span><span class="p">.</span><span class="nx">js</span><span class="p">()</span><span class="o">+</span><span class="s1">'index.js'</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">webpack</span><span class="p">(</span> <span class="nx">webpackConfig</span> <span class="p">))</span>
+    <span class="p">.</span><span class="nx">pipe</span><span class="p">(</span><span class="nx">gulp</span><span class="p">.</span><span class="nx">dest</span><span class="p">(</span><span class="nx">projectPath</span><span class="p">.</span><span class="nx">BuildJs</span><span class="p">()));</span>
+<span class="p">});</span></code></pre></figure>
+
+<p>The webpack (webpack-stream’) gulp task use webpackConfig to get the webpack configuration and project paths form projectPath.</p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>Your es6 changes should be made in <code class="highlighter-rouge">src/js/</code>, <code class="highlighter-rouge">src/js/index.js</code> is where your application starts.</p>
+
+<p>Open <code class="highlighter-rouge">public/index.html</code> to see your changes.</p>
+
+<h2 id="useful-links">Useful links</h2>
+
+<ul>
+  <li><a href="https://facebook.github.io/react/index.html">ReactJs</a></li>
+  <li><a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes">Javascript using classes</a></li>
+  <li><a href="http://gulpjs.com/">Gulp</a></li>
+  <li><a href="https://babeljs.io/">Babel</a></li>
+</ul>
+
+
+  </div>
+  <div>Tags: <strong>es6, react, webpack, gulp</strong></div>
+
+</article>
 
       </div>
     </div>
